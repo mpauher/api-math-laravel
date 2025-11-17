@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('disponibilidad_semanal', function (Blueprint $table) {
             $table->id('id_disponibilidad');
             $table->foreignId('id_trabajador')->constrained('trabajadores','id_trabajador');
-            $table->enum('dia_semana', ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo']);
             $table->foreignId('id_turno')->constrained('turnos','id_turno');
             $table->timestamps();
         });

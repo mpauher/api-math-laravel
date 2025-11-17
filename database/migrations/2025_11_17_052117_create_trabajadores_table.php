@@ -11,9 +11,17 @@ return new class extends Migration
         Schema::create('trabajadores', function (Blueprint $table) {
             $table->id('id_trabajador');
             $table->string('nombre', 100);
-            $table->foreignId('id_cargo')->constrained('cargos','id_cargo');
+
+            // Relación con cargos
+            $table->foreignId('id_cargo')->constrained('cargos', 'id_cargo');
+
+            // Relación con turnos 
+            $table->foreignId('id_turno')->constrained('turnos', 'id_turno');
+
+            // Restricciones
             $table->boolean('no_sabados_domingos')->default(false);
             $table->boolean('max_5_turnos')->default(false);
+
             $table->timestamps();
         });
     }

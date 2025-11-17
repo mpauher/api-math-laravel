@@ -11,7 +11,7 @@ class DisponibilidadSemanal extends Model
 
     protected $table = 'disponibilidad_semanal';
     protected $primaryKey = 'id_disponibilidad';
-    protected $fillable = ['id_trabajador', 'dia_semana', 'id_turno'];
+    protected $fillable = ['id_trabajador', 'id_turno'];
 
     public function trabajador()
     {

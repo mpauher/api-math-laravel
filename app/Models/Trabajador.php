@@ -10,7 +10,6 @@ class Trabajador extends Model
     use HasFactory;
 
     protected $table = 'trabajadores'; 
-
     protected $primaryKey = 'id_trabajador';   
     public $incrementing = true;
     protected $keyType = 'int';
@@ -18,12 +17,20 @@ class Trabajador extends Model
     protected $fillable = [
         'nombre',
         'id_cargo',
+        'id_turno',              
         'no_sabados_domingos',
         'max_5_turnos',
     ];
 
+    // Relación con Cargo
     public function cargo()
     {
         return $this->belongsTo(Cargo::class, 'id_cargo');
+    }
+
+    // Relación con Turno
+    public function turno()
+    {
+        return $this->belongsTo(Turno::class, 'id_turno');
     }
 }

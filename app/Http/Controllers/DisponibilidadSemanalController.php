@@ -17,8 +17,7 @@ class DisponibilidadSemanalController extends Controller
     {
         $request->validate([
             'id_trabajador' => 'required|exists:trabajadores,id_trabajador',
-            'id_turno' => 'required|exists:turnos,id_turno',
-            'dia_semana' => 'required|in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo'
+            'id_turno' => 'required|exists:turnos,id_turno'
         ]);
 
         $disponibilidad = DisponibilidadSemanal::create($request->all());
@@ -35,8 +34,7 @@ class DisponibilidadSemanalController extends Controller
     {
         $request->validate([
             'id_trabajador' => 'required|exists:trabajadores,id_trabajador',
-            'id_turno' => 'required|exists:turnos,id_turno',
-            'dia_semana' => 'required|in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo'
+            'id_turno' => 'required|exists:turnos,id_turno'
         ]);
 
         $disponibilidadSemanal->update($request->all());
