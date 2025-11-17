@@ -5,21 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Turno extends Model
+class Trabajador extends Model
 {
     use HasFactory;
 
-    protected $table = 'turnos';
-    protected $primaryKey = 'id_turno';
-    protected $fillable = ['nombre', 'hora_inicio', 'hora_fin'];
+    protected $table = 'trabajadores'; 
 
-    public function disponibilidades()
-    {
-        return $this->hasMany(DisponibilidadSemanal::class, 'id_turno', 'id_turno');
-    }
+    protected $fillable = [
+        'nombre',
+        'id_cargo',
+        'no_sabados_domingos',
+        'max_5_turnos',
+    ];
 
-    public function asignaciones()
+    public function cargo()
     {
-        return $this->hasMany(Asignacion::class, 'id_turno', 'id_turno');
+        return $this->belongsTo(Cargo::class, 'id_cargo');
     }
 }

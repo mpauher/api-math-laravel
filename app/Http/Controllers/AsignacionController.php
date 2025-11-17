@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asignacion;
-use App\Models\Trabajador;
-use App\Models\Turno;
 use Illuminate\Http\Request;
 
 class AsignacionController extends Controller
@@ -12,14 +10,7 @@ class AsignacionController extends Controller
     public function index()
     {
         $asignaciones = Asignacion::with('trabajador', 'turno')->get();
-        return view('asignaciones.index', compact('asignaciones'));
-    }
-
-    public function create()
-    {
-        $trabajadores = Trabajador::all();
-        $turnos = Turno::all();
-        return view('asignaciones.create', compact('trabajadores','turnos'));
+        return response()->json($asignaciones, 200);
     }
 
     public function store(Request $request)
@@ -30,21 +21,14 @@ class AsignacionController extends Controller
             'fecha' => 'required|date'
         ]);
 
-        Asignacion::create($request->all());
-        return redirect()->route('asignaciones.index')->with('success', 'Asignación registrada.');
+        $asignacion = Asignacion::create($request->all());
+        return response()->json($asignacion, 201);
     }
 
     public function show(Asignacion $asignacion)
     {
         $asignacion->load('trabajador', 'turno');
-        return view('asignaciones.show', compact('asignacion'));
-    }
-
-    public function edit(Asignacion $asignacion)
-    {
-        $trabajadores = Trabajador::all();
-        $turnos = Turno::all();
-        return view('asignaciones.edit', compact('asignacion','trabajadores','turnos'));
+        return response()->json($asignacion, 200);
     }
 
     public function update(Request $request, Asignacion $asignacion)
@@ -56,12 +40,12 @@ class AsignacionController extends Controller
         ]);
 
         $asignacion->update($request->all());
-        return redirect()->route('asignaciones.index')->with('success', 'Asignación actualizada.');
+        return response()->json($asignacion, 200);
     }
 
     public function destroy(Asignacion $asignacion)
     {
         $asignacion->delete();
-        return redirect()->route('asignaciones.index')->with('success', 'Asignación eliminada.');
+        return response()->json(['message' => 'Asignación eliminada'], 200);
     }
 }

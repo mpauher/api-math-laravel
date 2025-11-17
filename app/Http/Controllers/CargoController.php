@@ -10,41 +10,31 @@ class CargoController extends Controller
     public function index()
     {
         $cargos = Cargo::all();
-        return view('cargos.index', compact('cargos'));
-    }
-
-    public function create()
-    {
-        return view('cargos.create');
+        return response()->json($cargos);
     }
 
     public function store(Request $request)
     {
         $request->validate(['nombre' => 'required|string|max:50']);
-        Cargo::create($request->all());
-        return redirect()->route('cargos.index')->with('success', 'Cargo creado.');
+        $cargo = Cargo::create($request->all());
+        return response()->json($cargo, 201);
     }
 
     public function show(Cargo $cargo)
     {
-        return view('cargos.show', compact('cargo'));
-    }
-
-    public function edit(Cargo $cargo)
-    {
-        return view('cargos.edit', compact('cargo'));
+        return response()->json($cargo, 200);
     }
 
     public function update(Request $request, Cargo $cargo)
     {
         $request->validate(['nombre' => 'required|string|max:50']);
         $cargo->update($request->all());
-        return redirect()->route('cargos.index')->with('success', 'Cargo actualizado.');
+        return response()->json($cargo, 200);
     }
 
     public function destroy(Cargo $cargo)
     {
         $cargo->delete();
-        return redirect()->route('cargos.index')->with('success', 'Cargo eliminado.');
+        return response()->json(['message' => 'Cargo eliminado'], 200);
     }
 }

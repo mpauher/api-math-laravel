@@ -10,12 +10,7 @@ class TurnoController extends Controller
     public function index()
     {
         $turnos = Turno::all();
-        return view('turnos.index', compact('turnos'));
-    }
-
-    public function create()
-    {
-        return view('turnos.create');
+        return response()->json($turnos, 200);
     }
 
     public function store(Request $request)
@@ -26,18 +21,13 @@ class TurnoController extends Controller
             'hora_fin' => 'nullable|date_format:H:i',
         ]);
 
-        Turno::create($request->all());
-        return redirect()->route('turnos.index')->with('success', 'Turno creado.');
+        $turno = Turno::create($request->all());
+        return response()->json($turno, 201);
     }
 
     public function show(Turno $turno)
     {
-        return view('turnos.show', compact('turno'));
-    }
-
-    public function edit(Turno $turno)
-    {
-        return view('turnos.edit', compact('turno'));
+        return response()->json($turno, 200);
     }
 
     public function update(Request $request, Turno $turno)
@@ -49,12 +39,12 @@ class TurnoController extends Controller
         ]);
 
         $turno->update($request->all());
-        return redirect()->route('turnos.index')->with('success', 'Turno actualizado.');
+        return response()->json($turno, 200);
     }
 
     public function destroy(Turno $turno)
     {
         $turno->delete();
-        return redirect()->route('turnos.index')->with('success', 'Turno eliminado.');
+        return response()->json(['message' => 'Turno eliminado'], 200);
     }
 }

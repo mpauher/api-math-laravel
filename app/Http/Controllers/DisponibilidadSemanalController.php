@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DisponibilidadSemanal;
-use App\Models\Trabajador;
-use App\Models\Turno;
 use Illuminate\Http\Request;
 
 class DisponibilidadSemanalController extends Controller
@@ -12,15 +10,7 @@ class DisponibilidadSemanalController extends Controller
     public function index()
     {
         $disponibilidades = DisponibilidadSemanal::with('trabajador', 'turno')->get();
-        return view('disponibilidades.index', compact('disponibilidades'));
-    }
-
-    public function create()
-    {
-        $trabajadores = Trabajador::all();
-        $turnos = Turno::all();
-        $dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-        return view('disponibilidades.create', compact('trabajadores','turnos','dias'));
+        return response()->json($disponibilidades, 200);
     }
 
     public function store(Request $request)
@@ -31,22 +21,14 @@ class DisponibilidadSemanalController extends Controller
             'dia_semana' => 'required|in:Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo'
         ]);
 
-        DisponibilidadSemanal::create($request->all());
-        return redirect()->route('disponibilidad_semanal.index')->with('success', 'Disponibilidad registrada.');
+        $disponibilidad = DisponibilidadSemanal::create($request->all());
+        return response()->json($disponibilidad, 201);
     }
 
     public function show(DisponibilidadSemanal $disponibilidadSemanal)
     {
         $disponibilidadSemanal->load('trabajador', 'turno');
-        return view('disponibilidades.show', compact('disponibilidadSemanal'));
-    }
-
-    public function edit(DisponibilidadSemanal $disponibilidadSemanal)
-    {
-        $trabajadores = Trabajador::all();
-        $turnos = Turno::all();
-        $dias = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-        return view('disponibilidades.edit', compact('disponibilidadSemanal','trabajadores','turnos','dias'));
+        return response()->json($disponibilidadSemanal, 200);
     }
 
     public function update(Request $request, DisponibilidadSemanal $disponibilidadSemanal)
@@ -58,12 +40,12 @@ class DisponibilidadSemanalController extends Controller
         ]);
 
         $disponibilidadSemanal->update($request->all());
-        return redirect()->route('disponibilidad_semanal.index')->with('success', 'Disponibilidad actualizada.');
+        return response()->json($disponibilidadSemanal, 200);
     }
 
     public function destroy(DisponibilidadSemanal $disponibilidadSemanal)
     {
         $disponibilidadSemanal->delete();
-        return redirect()->route('disponibilidad_semanal.index')->with('success', 'Disponibilidad eliminada.');
+        return response()->json(['message' => 'Disponibilidad eliminada'], 200);
     }
 }
