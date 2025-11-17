@@ -32,8 +32,16 @@ class TrabajadorController extends Controller
         return response()->json($trabajador, 200);
     }
 
-    public function update(Request $request, Trabajador $trabajador)
+    public function update(Request $request, $id)
     {
+        // Buscar por la clave primaria real
+        $trabajador = Trabajador::where('id_trabajador', $id)->first();
+
+        if (!$trabajador) {
+            return response()->json(['error' => 'Trabajador no encontrado'], 404);
+        }
+
+        // Validación
         $request->validate([
             'nombre' => 'required|string|max:100',
             'id_cargo' => 'required|exists:cargos,id_cargo',
@@ -41,13 +49,26 @@ class TrabajadorController extends Controller
             'max_5_turnos' => 'boolean'
         ]);
 
+        // Actualizar
         $trabajador->update($request->all());
-        return response()->json($trabajador, 200);
+
+        return response()->json([
+            'message' => 'Trabajador actualizado correctamente',
+            'trabajador' => $trabajador
+        ], 200);
     }
 
-    public function destroy(Trabajador $trabajador)
+    public function destroy($id)
     {
+        $trabajador = Trabajador::where('id_trabajador', $id)->first();
+
+        if (!$trabajador) {
+            return response()->json(['error' => 'Trabajador no encontrado'], 404);
+        }
+
         $trabajador->delete();
+
         return response()->json(['message' => 'Trabajador eliminado'], 200);
     }
+
 }

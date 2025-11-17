@@ -11,6 +11,10 @@ class Trabajador extends Model
 
     protected $table = 'trabajadores'; 
 
+    protected $primaryKey = 'id_trabajador';   
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         'nombre',
         'id_cargo',
