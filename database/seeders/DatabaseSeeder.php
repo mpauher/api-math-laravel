@@ -2,24 +2,30 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+
+// Importa tus seeders
+use Database\Seeders\CargosSeeder;
+use Database\Seeders\TurnosSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Seed del usuario de prueba
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // Llamar tus seeders para llenar cargos y turnos
+        $this->call([
+            CargosSeeder::class,
+            TurnosSeeder::class,
         ]);
     }
 }
