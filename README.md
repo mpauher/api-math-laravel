@@ -1,60 +1,76 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Configuración del Backend (API en Laravel) 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Antes de ejecutar la aplicación de escritorio (.exe), es necesario instalar, configurar y levantar el servidor backend. Este backend está desarrollado con **Laravel** y utiliza **MySQL** como base de datos.
 
-## About Laravel
+# Descripción general
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este proyecto corresponde a la API utilizada por la aplicación de asignación de turnos. La API gestiona los trabajadores, turnos y asignaciones, utilizando PHP con el framework **Laravel**, una base de datos **MySQL** y el modelo arquitectónico MVC. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Requisitos 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Asegúrate de tener instaladas las siguientes herramientas: 
 
-## Learning Laravel
+- **PHP 8+** 
+- **Composer 2+** 
+- **MySQL 8+** 
+- **phpMyAdmin** (opcional pero recomendado para manejar la base de datos)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+# Instalación 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clonar el repositorio
 
-## Laravel Sponsors
+        git clone https://github.com/mpauher/api-math-laravel.git
+    
+    Ingresar a la carpeta del proyecto:
+        cd api-math-laravel
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Instalar dependencias
+    
+        composer install
 
-### Premium Partners
+3. Copiar el archivo de entorno
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    cp .env.example .env
 
-## Contributing
+4. Configurar el archivo .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    Abrir el archivo: nano .env Y completar los datos de la base de datos según tu configuración local:
+        DB_DATABASE=nombre_de_tu_base
+        DB_USERNAME=tu_usuario_mysql
+        DB_PASSWORD=tu_contraseña_mysql
 
-## Code of Conduct
+    Nota: Nunca compartas tu archivo .env.
+    Cada persona debe configurar sus propias credenciales locales.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+5. Crear la base de datos
 
-## Security Vulnerabilities
+    Abrir http://localhost/phpmyadmin
+    Iniciar sesión
+    Crear una nueva base de datos con el nombre usado en el .env
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+6. Ejecutar migraciones y seeders
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# api-math-laravel
+        php artisan migrate --seed
+    Esto creará las tablas y llenará datos iniciales como cargos y turnos.
+
+7. Levantar el servidor backend
+    
+        php artisan serve --port=8001
+
+    Debes mantener el servidor encendido antes de abrir el archivo .exe de la aplicación Flutter.
+
+## Archivos Opcionales
+
+- Colección de Postman: /collection.postman_collection.json
+- Tecnologías Utilizadas
+- Laravel
+- Composer
+- MySQL
+
+## Autores
+María Paula Hernández
+Jairo David Moreno
+
+
+
