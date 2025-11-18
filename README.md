@@ -30,31 +30,33 @@ Asegúrate de tener instaladas las siguientes herramientas:
 
 3. Copiar el archivo de entorno
 
-    cp .env.example .env
+        cp .env.example .env
 
 4. Configurar el archivo .env
 
-    Abrir el archivo: nano .env Y completar los datos de la base de datos según tu configuración local:
-        DB_DATABASE=nombre_de_tu_base
-        DB_USERNAME=tu_usuario_mysql
-        DB_PASSWORD=tu_contraseña_mysql
+   - Abrir el archivo: nano .env
+   - Completar los datos de la base de datos según tu configuración local:
+   
+            DB_DATABASE=nombre_de_tu_base
+            DB_USERNAME=tu_usuario_mysql
+            DB_PASSWORD=tu_contraseña_mysql
 
     Nota: Nunca compartas tu archivo .env.
     Cada persona debe configurar sus propias credenciales locales.
 
-5. Crear la base de datos
+6. Crear la base de datos
 
-    Abrir http://localhost/phpmyadmin
-    Iniciar sesión
-    Crear una nueva base de datos con el nombre usado en el .env
+    - Abrir http://localhost/phpmyadmin
+    - Iniciar sesión
+    - Crear una nueva base de datos con el nombre usado en el .env
 
-6. Ejecutar migraciones y seeders
-
+7. Ejecutar migraciones y seeders
 
         php artisan migrate --seed
+   
     Esto creará las tablas y llenará datos iniciales como cargos y turnos.
 
-7. Levantar el servidor backend
+9. Levantar el servidor backend
     
         php artisan serve --port=8001
 
@@ -69,8 +71,8 @@ Asegúrate de tener instaladas las siguientes herramientas:
 - MySQL
 
 ## Autores
-María Paula Hernández
-Jairo David Moreno
+- María Paula Hernández
+- Jairo David Moreno
 
 
 
